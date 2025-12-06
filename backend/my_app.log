@@ -1,0 +1,372 @@
+2025-11-04 00:33:27,854 - db_helper - INFO - fetch_records_for_date called with 2024-08-28
+2025-11-04 18:57:40,065 - my_logger - INFO - Fetched category wise summary between 2024-08-01 and 2024-08-31
+2025-11-04 18:59:09,392 - my_logger - INFO - Fetched category wise summary between 2024-08-01 and 2024-08-31
+2025-11-04 18:59:27,636 - my_logger - INFO - Fetched category wise summary between 2024-08-01 and 2024-08-31
+2025-11-04 19:00:32,043 - my_logger - INFO - Fetched category wise summary between 2024-08-01 and 2024-08-31
+2025-11-04 19:01:38,735 - my_logger - INFO - Fetched category wise summary between 2024-08-01 and 2024-08-31
+2025-11-04 19:02:07,790 - my_logger - INFO - Fetched category wise summary between 2024-08-01 and 2024-08-05
+2025-11-04 19:02:07,873 - my_logger - INFO - Fetched month wise summary for the year: [2024]
+2025-11-04 19:03:35,978 - my_logger - INFO - Fetched category wise summary between 2024-08-01 and 2024-08-05
+2025-11-04 19:03:59,323 - my_logger - INFO - Fetched category wise summary between 2024-08-01 and 2024-08-05
+2025-11-04 19:03:59,388 - my_logger - INFO - Fetched month wise summary for the year: [2024]
+2025-11-04 19:04:58,305 - my_logger - INFO - Fetched category wise summary between 2024-08-01 and 2024-08-05
+2025-11-04 19:04:58,382 - my_logger - INFO - Fetched month wise summary for the year: [2024]
+2025-11-04 19:06:52,552 - my_logger - INFO - Fetched category wise summary between 2024-08-01 and 2024-08-05
+2025-11-04 19:06:52,623 - my_logger - INFO - Fetched month wise summary for the year: [2024]
+2025-11-04 19:07:18,592 - my_logger - INFO - Fetched category wise summary between 2024-08-01 and 2024-08-05
+2025-11-04 19:07:18,661 - my_logger - INFO - Fetched month wise summary for the year: [2024]
+2025-11-04 19:07:51,572 - my_logger - INFO - Fetched category wise summary between 2024-08-01 and 2024-08-05
+2025-11-04 19:07:51,648 - my_logger - INFO - Fetched month wise summary for the year: [2024]
+2025-11-04 19:08:51,986 - my_logger - INFO - Fetched category wise summary between 2024-08-01 and 2024-08-05
+2025-11-04 19:08:52,051 - my_logger - INFO - Fetched month wise summary for the year: [2024]
+2025-11-04 19:09:03,132 - my_logger - INFO - Fetched category wise summary between 2024-08-01 and 2024-08-31
+2025-11-04 19:09:52,822 - my_logger - INFO - Fetched category wise summary between 2024-08-01 and 2024-08-31
+2025-11-04 19:10:00,110 - my_logger - INFO - Fetched category wise summary between 2024-08-01 and 2024-08-15
+2025-11-04 19:10:08,423 - my_logger - INFO - Fetched category wise summary between 2024-08-01 and 2024-12-15
+2025-11-04 20:42:00,633 - my_logger - INFO - Fetched month wise summary for the year: [2024]
+2025-11-04 20:42:33,056 - my_logger - INFO - Fetched month wise summary for the year: [2024]
+2025-11-08 22:14:47,445 - my_logger - INFO - Fetching expense records for the date: 2024-08-01
+2025-11-08 22:17:19,216 - my_logger - INFO - Fetching expense records for the date: 2024-08-01
+2025-11-08 22:21:16,397 - my_logger - INFO - Fetching expense records for the date: 2024-08-01
+2025-11-08 22:21:23,108 - my_logger - INFO - Fetching expense records for the date: 2024-08-04
+2025-11-08 22:23:27,531 - my_logger - INFO - Fetching expense records for the date: 2024-08-01
+2025-11-08 22:23:42,419 - my_logger - INFO - Fetching expense records for the date: 2024-08-01
+2025-11-08 22:59:15,066 - my_logger - INFO - Fetching expense records for the date: 2024-08-01
+2025-11-08 22:59:24,910 - my_logger - INFO - Fetching expense records for the date: 2024-08-01
+2025-11-08 22:59:36,480 - my_logger - INFO - Fetching expense records for the date: 2024-07-01
+2025-11-08 23:00:43,772 - my_logger - INFO - Fetching expense records for the date: 2024-07-01
+2025-11-08 23:01:12,260 - my_logger - INFO - Fetching expense records for the date: 2024-07-01
+2025-11-08 23:01:27,831 - my_logger - INFO - Fetching expense records for the date: 2024-07-01
+2025-11-08 23:01:36,122 - my_logger - INFO - Fetching expense records for the date: 2024-07-01
+2025-11-08 23:13:09,204 - my_logger - INFO - Fetching expense records for the date: 2024-07-01
+2025-11-08 23:13:41,023 - my_logger - INFO - Fetching expense records for the date: 2024-07-01
+2025-11-08 23:13:53,568 - my_logger - INFO - Fetching expense records for the date: 2024-07-01
+2025-11-08 23:14:07,923 - my_logger - INFO - Fetching expense records for the date: 2024-07-01
+2025-11-08 23:14:40,738 - my_logger - INFO - Fetching expense records for the date: 2024-07-01
+2025-11-08 23:15:10,923 - my_logger - INFO - Fetching expense records for the date: 2024-07-01
+2025-11-08 23:15:45,789 - my_logger - INFO - Fetching expense records for the date: 2024-07-01
+2025-11-08 23:15:57,567 - my_logger - INFO - Fetching expense records for the date: 2024-07-08
+2025-11-08 23:16:03,602 - my_logger - INFO - Fetching expense records for the date: 2024-08-01
+2025-11-08 23:16:37,811 - my_logger - INFO - Fetching expense records for the date: 2024-08-01
+2025-11-08 23:19:04,866 - my_logger - INFO - Fetching expense records for the date: 2024-08-01
+2025-11-08 23:19:11,845 - my_logger - INFO - Fetching expense records for the date: 2024-08-01
+2025-11-08 23:22:22,339 - my_logger - INFO - Fetching expense records for the date: 2024-08-01
+2025-11-08 23:22:43,216 - my_logger - INFO - Fetching expense records for the date: 2024-08-01
+2025-11-08 23:27:47,936 - my_logger - INFO - Fetching expense records for the date: 2024-08-01
+2025-11-08 23:28:23,009 - my_logger - INFO - Fetching expense records for the date: 2024-08-01
+2025-11-08 23:28:30,164 - my_logger - INFO - Fetching expense records for the date: 2024-08-01
+2025-11-08 23:28:37,747 - my_logger - INFO - Fetching expense records for the date: 2024-08-01
+2025-11-08 23:28:40,819 - my_logger - INFO - Fetching expense records for the date: 2024-08-01
+2025-11-08 23:30:00,510 - my_logger - INFO - Fetching expense records for the date: 2024-08-01
+2025-11-08 23:31:10,346 - my_logger - INFO - Fetching expense records for the date: 2024-08-01
+2025-11-08 23:31:21,110 - my_logger - INFO - Fetching expense records for the date: 2024-08-01
+2025-11-08 23:31:36,978 - my_logger - INFO - Fetching expense records for the date: 2024-08-01
+2025-11-08 23:31:49,631 - my_logger - INFO - Fetching expense records for the date: 2024-08-01
+2025-11-08 23:32:56,465 - my_logger - INFO - Fetching expense records for the date: 2024-08-01
+2025-11-08 23:33:22,447 - my_logger - INFO - Fetching expense records for the date: 2024-08-01
+2025-11-08 23:41:10,499 - my_logger - INFO - Fetching expense records for the date: 2024-08-01
+2025-11-08 23:41:38,870 - my_logger - INFO - Fetching expense records for the date: 2024-08-01
+2025-11-08 23:41:41,920 - my_logger - INFO - Fetching expense records for the date: 2024-08-01
+2025-11-08 23:41:46,027 - my_logger - INFO - Fetching expense records for the date: 2024-08-01
+2025-11-09 16:39:34,026 - my_logger - INFO - Fetching expense records for the date: 2024-08-01
+2025-11-09 16:39:58,639 - my_logger - INFO - Fetching expense records for the date: 2024-08-01
+2025-11-09 16:40:26,824 - my_logger - INFO - Fetching expense records for the date: 2024-08-01
+2025-11-09 16:40:42,107 - my_logger - INFO - Fetching expense records for the date: 2024-08-01
+2025-11-09 16:41:00,028 - my_logger - INFO - Fetching expense records for the date: 2024-08-01
+2025-11-09 16:41:15,793 - my_logger - INFO - Fetching expense records for the date: 2024-08-01
+2025-11-09 16:41:49,481 - my_logger - INFO - Fetching expense records for the date: 2024-08-01
+2025-11-09 16:42:04,685 - my_logger - INFO - Fetching expense records for the date: 2024-08-01
+2025-11-09 16:42:59,832 - my_logger - INFO - Fetching expense records for the date: 2024-08-01
+2025-11-09 16:43:45,446 - my_logger - INFO - Fetching expense records for the date: 2024-08-01
+2025-11-09 17:51:14,279 - my_logger - INFO - Fetching expense records for the date: 2024-08-01
+2025-11-09 17:51:40,796 - my_logger - INFO - Fetching expense records for the date: 2024-08-01
+2025-11-09 17:51:49,538 - my_logger - INFO - Fetching expense records for the date: 2024-08-05
+2025-11-09 17:52:23,556 - my_logger - INFO - Fetching expense records for the date: 2024-08-05
+2025-11-09 17:52:42,996 - my_logger - INFO - Fetching expense records for the date: 2024-08-05
+2025-11-09 17:53:14,651 - my_logger - INFO - Fetching expense records for the date: 2024-08-05
+2025-11-09 17:55:10,969 - my_logger - INFO - Fetching expense records for the date: 2024-08-05
+2025-11-09 17:55:47,333 - my_logger - INFO - Fetching expense records for the date: 2024-08-05
+2025-11-09 17:58:10,076 - my_logger - INFO - Fetching expense records for the date: 2024-08-05
+2025-11-09 17:58:28,495 - my_logger - INFO - Fetching expense records for the date: 2024-08-05
+2025-11-09 17:59:23,324 - my_logger - INFO - Fetching expense records for the date: 2024-08-06
+2025-11-09 17:59:28,051 - my_logger - INFO - Fetching expense records for the date: 2024-08-07
+2025-11-09 18:00:26,999 - my_logger - INFO - Fetching expense records for the date: 2024-08-07
+2025-11-09 18:00:31,985 - my_logger - INFO - Fetching expense records for the date: 2024-07-01
+2025-11-09 18:01:58,176 - my_logger - INFO - Fetching expense records for the date: 2024-07-02
+2025-11-09 18:02:01,422 - my_logger - INFO - Fetching expense records for the date: 2024-07-03
+2025-11-09 18:02:05,857 - my_logger - INFO - Fetching expense records for the date: 2024-08-01
+2025-11-09 18:02:08,743 - my_logger - INFO - Fetching expense records for the date: 2024-08-02
+2025-11-09 18:02:12,156 - my_logger - INFO - Fetching expense records for the date: 2024-08-03
+2025-11-09 18:04:37,568 - my_logger - INFO - Fetching expense records for the date: 2024-08-03
+2025-11-09 18:04:40,978 - my_logger - INFO - Fetching expense records for the date: 2024-08-01
+2025-11-09 18:05:53,644 - my_logger - INFO - Fetching expense records for the date: 2024-08-01
+2025-11-09 18:05:56,496 - my_logger - INFO - Fetching expense records for the date: 2024-08-02
+2025-11-09 18:05:59,627 - my_logger - INFO - Fetching expense records for the date: 2024-08-09
+2025-11-09 18:06:05,762 - my_logger - INFO - Fetching expense records for the date: 2024-08-05
+2025-11-09 18:16:29,307 - my_logger - INFO - Fetching expense records for the date: 2024-08-07
+2025-11-09 18:16:47,391 - my_logger - INFO - Fetching expense records for the date: 2024-08-07
+2025-11-09 18:17:39,908 - my_logger - INFO - Fetching expense records for the date: 2024-08-07
+2025-11-09 18:19:21,644 - my_logger - INFO - Fetching expense records for the date: 2024-08-07
+2025-11-09 18:19:24,623 - my_logger - INFO - Fetching expense records for the date: 2024-08-06
+2025-11-09 18:19:27,379 - my_logger - INFO - Fetching expense records for the date: 2024-08-07
+2025-11-09 18:19:48,892 - my_logger - INFO - Fetching expense records for the date: 2024-08-07
+2025-11-09 18:21:22,350 - my_logger - INFO - Fetching expense records for the date: 2024-08-07
+2025-11-09 18:35:50,727 - my_logger - INFO - Fetching expense records for the date: 2024-08-07
+2025-11-09 18:37:31,081 - my_logger - INFO - Fetching expense records for the date: 2024-08-07
+2025-11-09 18:39:17,881 - my_logger - INFO - Fetching expense records for the date: 2024-08-07
+2025-11-09 18:40:41,521 - my_logger - INFO - Fetching expense records for the date: 2024-08-07
+2025-11-09 18:40:41,576 - my_logger - DEBUG - Deleted all records for the date: 2024-08-07
+2025-11-09 18:40:41,600 - my_logger - DEBUG - Inserted 1 row of record for the date: 2024-08-07
+2025-11-09 18:41:20,321 - my_logger - INFO - Fetching expense records for the date: 2024-08-06
+2025-11-09 18:41:46,340 - my_logger - INFO - Fetching expense records for the date: 2024-08-06
+2025-11-09 18:41:46,406 - my_logger - DEBUG - Deleted all records for the date: 2024-08-06
+2025-11-09 18:41:46,428 - my_logger - DEBUG - Inserted 1 row of record for the date: 2024-08-06
+2025-11-09 18:41:46,451 - my_logger - DEBUG - Inserted 1 row of record for the date: 2024-08-06
+2025-11-09 18:41:46,468 - my_logger - DEBUG - Inserted 1 row of record for the date: 2024-08-06
+2025-11-09 18:41:46,490 - my_logger - DEBUG - Inserted 1 row of record for the date: 2024-08-06
+2025-11-09 18:41:46,510 - my_logger - DEBUG - Inserted 1 row of record for the date: 2024-08-06
+2025-11-09 19:20:11,954 - my_logger - INFO - Fetching expense records for the date: 2024-08-06
+2025-11-09 22:08:05,270 - my_logger - INFO - Fetched category wise summary between 2024-08-01 and 2024-08-05
+2025-11-09 22:08:05,625 - my_logger - INFO - Fetched month wise summary for the year: [2024]
+2025-11-09 23:35:02,916 - my_logger - INFO - Fetching expense records for the date: 2024-08-01
+2025-11-15 20:39:39,882 - my_logger - DEBUG - Inserted 1 row of savings record for the date: 2025-11-01
+2025-11-15 20:40:34,417 - my_logger - DEBUG - Inserted 1 row of savings record for the date: 2025-11-01
+2025-11-15 20:41:54,723 - my_logger - DEBUG - Inserted 1 row of savings record for the date: 2025-11-01
+2025-11-15 20:43:13,532 - my_logger - DEBUG - Deleted all the savings records for the date: 2025-11-01
+2025-11-16 00:46:32,447 - my_logger - DEBUG - Deleted all the expense records for the date: 2025-11-01
+2025-11-16 00:46:32,836 - my_logger - DEBUG - Inserted 1 row of expense record for the date: 2025-11-01
+2025-11-16 00:47:55,419 - my_logger - DEBUG - Deleted all the expense records for the date: 2025-11-01
+2025-11-16 00:47:55,441 - my_logger - DEBUG - Inserted 1 row of expense record for the date: 2025-11-01
+2025-11-16 00:48:41,596 - my_logger - DEBUG - Deleted all the expense records for the date: 2025-11-01
+2025-11-16 00:48:41,639 - my_logger - DEBUG - Inserted 1 row of expense record for the date: 2025-11-01
+2025-11-16 00:58:54,974 - my_logger - DEBUG - Deleted all the savings records for the date: 2025-11-01
+2025-11-16 01:00:01,613 - my_logger - DEBUG - Deleted all the savings records for the date: 2025-11-01
+2025-11-16 01:00:01,634 - my_logger - DEBUG - Inserted 1 row of savings record for the date: 2025-11-01
+2025-11-16 01:00:01,654 - my_logger - DEBUG - Inserted 1 row of savings record for the date: 2025-11-01
+2025-11-16 01:00:24,967 - my_logger - INFO - Fetching savings records for the date: 2025-11-01
+2025-11-16 01:01:23,214 - my_logger - DEBUG - Deleted all the savings records for the date: 2025-11-01
+2025-11-16 01:01:23,234 - my_logger - DEBUG - Inserted 1 row of savings record for the date: 2025-11-01
+2025-11-16 01:01:23,257 - my_logger - DEBUG - Inserted 1 row of savings record for the date: 2025-11-01
+2025-11-16 01:01:27,627 - my_logger - INFO - Fetching savings records for the date: 2025-11-01
+2025-11-16 01:01:54,067 - my_logger - DEBUG - Deleted all the savings records for the date: 2025-11-01
+2025-11-16 01:01:54,092 - my_logger - DEBUG - Inserted 1 row of savings record for the date: 2025-11-01
+2025-11-16 01:01:54,113 - my_logger - DEBUG - Inserted 1 row of savings record for the date: 2025-11-01
+2025-11-16 01:01:58,431 - my_logger - INFO - Fetching savings records for the date: 2025-11-01
+2025-11-16 01:16:30,540 - my_logger - INFO - Fetching expense records for the date: 2024-08-02
+2025-11-16 01:17:38,770 - my_logger - INFO - Fetching expense records for the date: 2024-08-02
+2025-11-16 01:18:27,667 - my_logger - INFO - Fetching expense records for the date: 2024-08-02
+2025-11-16 01:18:27,725 - my_logger - INFO - Fetching savings records for the date: 2024-08-02
+2025-11-16 01:19:08,033 - my_logger - INFO - Fetching expense records for the date: 2024-08-02
+2025-11-16 01:19:08,074 - my_logger - INFO - Fetching savings records for the date: 2024-08-02
+2025-11-16 01:19:45,155 - my_logger - INFO - Fetching expense records for the date: 2024-08-02
+2025-11-16 01:19:45,201 - my_logger - INFO - Fetching savings records for the date: 2024-08-02
+2025-11-16 18:24:30,911 - my_logger - INFO - Fetching expense records for the date: 2024-08-01
+2025-11-16 18:24:32,786 - my_logger - INFO - Fetching savings records for the date: 2024-08-01
+2025-11-16 18:25:08,292 - my_logger - INFO - Fetching expense records for the date: 2024-08-01
+2025-11-16 18:25:08,342 - my_logger - INFO - Fetching savings records for the date: 2024-08-01
+2025-11-16 18:25:16,531 - my_logger - INFO - Fetching expense records for the date: 2024-08-02
+2025-11-16 18:25:16,698 - my_logger - INFO - Fetching savings records for the date: 2024-08-02
+2025-11-16 18:42:01,828 - my_logger - INFO - Fetching expense records for the date: 2024-08-02
+2025-11-16 18:42:01,907 - my_logger - INFO - Fetching savings records for the date: 2024-08-02
+2025-11-16 18:43:51,401 - my_logger - INFO - Fetching expense records for the date: 2024-08-02
+2025-11-16 18:43:51,436 - my_logger - INFO - Fetching savings records for the date: 2024-08-02
+2025-11-16 18:44:07,308 - my_logger - INFO - Fetching expense records for the date: 2024-08-02
+2025-11-16 18:44:07,411 - my_logger - INFO - Fetching savings records for the date: 2024-08-02
+2025-11-16 18:44:52,339 - my_logger - INFO - Fetching expense records for the date: 2024-08-02
+2025-11-16 18:44:52,393 - my_logger - INFO - Fetching savings records for the date: 2024-08-02
+2025-11-16 18:45:21,059 - my_logger - INFO - Fetching expense records for the date: 2024-08-02
+2025-11-16 18:45:21,111 - my_logger - INFO - Fetching savings records for the date: 2024-08-02
+2025-11-16 18:46:01,180 - my_logger - INFO - Fetching expense records for the date: 2024-08-02
+2025-11-16 18:46:01,228 - my_logger - INFO - Fetching savings records for the date: 2024-08-02
+2025-11-16 18:46:25,974 - my_logger - INFO - Fetching expense records for the date: 2024-08-02
+2025-11-16 18:46:26,089 - my_logger - INFO - Fetching savings records for the date: 2024-08-02
+2025-11-16 19:40:16,936 - my_logger - INFO - Fetching expense records for the date: 2024-08-02
+2025-11-16 19:40:17,276 - my_logger - INFO - Fetching savings records for the date: 2024-08-02
+2025-11-16 19:42:47,648 - my_logger - INFO - Fetching expense records for the date: 2024-08-02
+2025-11-16 19:42:47,840 - my_logger - INFO - Fetching savings records for the date: 2024-08-02
+2025-11-16 19:45:58,969 - my_logger - INFO - Fetching expense records for the date: 2024-08-02
+2025-11-16 19:45:59,090 - my_logger - INFO - Fetching savings records for the date: 2024-08-02
+2025-11-16 19:46:12,066 - my_logger - INFO - Fetching expense records for the date: 2024-08-02
+2025-11-16 19:46:12,125 - my_logger - INFO - Fetching savings records for the date: 2024-08-02
+2025-11-16 19:47:33,557 - my_logger - INFO - Fetching expense records for the date: 2024-08-02
+2025-11-16 19:47:33,634 - my_logger - INFO - Fetching savings records for the date: 2024-08-02
+2025-11-16 19:47:54,640 - my_logger - INFO - Fetching expense records for the date: 2024-08-02
+2025-11-16 19:47:54,695 - my_logger - INFO - Fetching savings records for the date: 2024-08-02
+2025-11-16 19:48:08,901 - my_logger - INFO - Fetching expense records for the date: 2025-11-01
+2025-11-16 19:48:09,119 - my_logger - INFO - Fetching savings records for the date: 2025-11-01
+2025-11-16 19:48:56,706 - my_logger - INFO - Fetching expense records for the date: 2025-11-01
+2025-11-16 19:48:56,778 - my_logger - INFO - Fetching savings records for the date: 2025-11-01
+2025-11-16 19:49:20,813 - my_logger - INFO - Fetching expense records for the date: 2025-11-01
+2025-11-16 19:49:20,856 - my_logger - INFO - Fetching savings records for the date: 2025-11-01
+2025-11-16 19:49:53,345 - my_logger - INFO - Fetching expense records for the date: 2025-11-01
+2025-11-16 19:49:53,393 - my_logger - INFO - Fetching savings records for the date: 2025-11-01
+2025-11-16 19:50:44,642 - my_logger - INFO - Fetching expense records for the date: 2024-08-06
+2025-11-16 19:50:44,777 - my_logger - INFO - Fetching savings records for the date: 2024-08-06
+2025-11-16 19:50:52,100 - my_logger - INFO - Fetching expense records for the date: 2024-08-07
+2025-11-16 19:50:52,158 - my_logger - INFO - Fetching savings records for the date: 2024-08-07
+2025-11-16 19:55:55,975 - my_logger - INFO - Fetching expense records for the date: 2024-08-07
+2025-11-16 19:55:56,058 - my_logger - INFO - Fetching savings records for the date: 2024-08-07
+2025-11-16 19:56:22,140 - my_logger - INFO - Fetching expense records for the date: 2024-08-07
+2025-11-16 19:56:22,322 - my_logger - INFO - Fetching savings records for the date: 2024-08-07
+2025-11-16 19:57:08,599 - my_logger - INFO - Fetching expense records for the date: 2024-08-07
+2025-11-16 19:57:08,675 - my_logger - INFO - Fetching savings records for the date: 2024-08-07
+2025-11-16 19:59:47,731 - my_logger - INFO - Fetching expense records for the date: 2024-08-07
+2025-11-16 19:59:47,771 - my_logger - INFO - Fetching savings records for the date: 2024-08-07
+2025-11-16 20:00:17,859 - my_logger - INFO - Fetching expense records for the date: 2024-08-07
+2025-11-16 20:00:17,944 - my_logger - INFO - Fetching savings records for the date: 2024-08-07
+2025-11-16 20:00:18,365 - my_logger - DEBUG - Deleted all the savings records for the date: 2024-08-07
+2025-11-16 20:00:18,455 - my_logger - DEBUG - Inserted 1 row of savings record for the date: 2024-08-07
+2025-11-16 20:00:54,377 - my_logger - INFO - Fetching expense records for the date: 2024-08-07
+2025-11-16 20:00:54,426 - my_logger - INFO - Fetching savings records for the date: 2024-08-07
+2025-11-16 20:00:54,626 - my_logger - DEBUG - Deleted all the savings records for the date: 2024-08-07
+2025-11-16 20:00:54,754 - my_logger - DEBUG - Inserted 1 row of savings record for the date: 2024-08-07
+2025-11-16 20:56:29,846 - my_logger - INFO - Fetching expense records for the date: 2024-08-07
+2025-11-16 20:56:30,255 - my_logger - INFO - Fetching savings records for the date: 2024-08-07
+2025-11-16 20:57:26,885 - my_logger - INFO - Fetching expense records for the date: 2024-08-07
+2025-11-16 20:57:26,940 - my_logger - INFO - Fetching savings records for the date: 2024-08-07
+2025-11-16 20:58:02,094 - my_logger - INFO - Fetching expense records for the date: 2024-08-07
+2025-11-16 20:58:02,133 - my_logger - INFO - Fetching savings records for the date: 2024-08-07
+2025-11-16 21:22:26,644 - my_logger - INFO - Fetching expense records for the date: 2024-08-07
+2025-11-16 21:22:26,767 - my_logger - INFO - Fetching savings records for the date: 2024-08-07
+2025-11-16 21:27:34,399 - my_logger - INFO - Fetching expense records for the date: 2024-08-07
+2025-11-16 21:27:34,502 - my_logger - INFO - Fetching savings records for the date: 2024-08-07
+2025-11-16 21:27:52,784 - my_logger - INFO - Fetching expense records for the date: 2024-08-07
+2025-11-16 21:27:52,835 - my_logger - INFO - Fetching savings records for the date: 2024-08-07
+2025-11-16 21:28:12,278 - my_logger - INFO - Fetching expense records for the date: 2024-08-07
+2025-11-16 21:28:12,423 - my_logger - INFO - Fetching savings records for the date: 2024-08-07
+2025-11-16 21:35:15,953 - my_logger - INFO - Fetching expense records for the date: 2024-08-07
+2025-11-16 21:35:16,148 - my_logger - INFO - Fetching savings records for the date: 2024-08-07
+2025-11-16 21:41:05,215 - my_logger - INFO - Fetching expense records for the date: 2024-08-07
+2025-11-16 21:41:05,277 - my_logger - INFO - Fetching savings records for the date: 2024-08-07
+2025-11-16 21:47:11,326 - my_logger - INFO - Fetching expense records for the date: 2024-08-07
+2025-11-16 21:47:11,470 - my_logger - INFO - Fetching savings records for the date: 2024-08-07
+2025-11-16 21:47:34,225 - my_logger - INFO - Fetching expense records for the date: 2024-08-07
+2025-11-16 21:47:34,336 - my_logger - INFO - Fetching savings records for the date: 2024-08-07
+2025-11-16 21:48:23,286 - my_logger - INFO - Fetching expense records for the date: 2024-08-07
+2025-11-16 21:48:23,406 - my_logger - INFO - Fetching savings records for the date: 2024-08-07
+2025-11-16 21:48:35,249 - my_logger - INFO - Fetching expense records for the date: 2024-08-07
+2025-11-16 21:48:35,287 - my_logger - INFO - Fetching savings records for the date: 2024-08-07
+2025-11-16 21:48:39,057 - my_logger - INFO - Fetching expense records for the date: 2024-08-07
+2025-11-16 21:48:39,098 - my_logger - INFO - Fetching savings records for the date: 2024-08-07
+2025-11-16 23:23:48,914 - my_logger - INFO - Fetching expense records for the date: 2024-08-07
+2025-11-16 23:23:49,130 - my_logger - INFO - Fetching savings records for the date: 2024-08-07
+2025-11-16 23:29:39,813 - my_logger - INFO - Fetching expense records for the date: 2024-08-07
+2025-11-16 23:29:39,966 - my_logger - INFO - Fetching savings records for the date: 2024-08-07
+2025-11-16 23:35:07,650 - my_logger - INFO - Fetching expense records for the date: 2024-08-07
+2025-11-16 23:35:07,744 - my_logger - INFO - Fetching savings records for the date: 2024-08-07
+2025-11-16 23:37:55,007 - my_logger - INFO - Fetching expense records for the date: 2024-08-07
+2025-11-16 23:37:55,075 - my_logger - INFO - Fetching savings records for the date: 2024-08-07
+2025-11-16 23:38:16,811 - my_logger - INFO - Fetching expense records for the date: 2024-08-07
+2025-11-16 23:38:16,863 - my_logger - INFO - Fetching savings records for the date: 2024-08-07
+2025-11-16 23:38:33,316 - my_logger - INFO - Fetching expense records for the date: 2024-08-07
+2025-11-16 23:38:33,467 - my_logger - INFO - Fetching savings records for the date: 2024-08-07
+2025-11-16 23:38:35,141 - my_logger - INFO - Fetching expense records for the date: 2024-08-07
+2025-11-16 23:38:35,183 - my_logger - INFO - Fetching savings records for the date: 2024-08-07
+2025-11-16 23:39:07,409 - my_logger - INFO - Fetching expense records for the date: 2024-08-07
+2025-11-16 23:39:07,458 - my_logger - INFO - Fetching savings records for the date: 2024-08-07
+2025-11-16 23:40:19,818 - my_logger - INFO - Fetching expense records for the date: 2024-08-07
+2025-11-16 23:40:19,868 - my_logger - INFO - Fetching savings records for the date: 2024-08-07
+2025-11-16 23:40:21,887 - my_logger - INFO - Fetching expense records for the date: 2024-08-07
+2025-11-16 23:40:22,032 - my_logger - INFO - Fetching savings records for the date: 2024-08-07
+2025-11-16 23:40:54,754 - my_logger - INFO - Fetching expense records for the date: 2024-08-07
+2025-11-16 23:40:54,812 - my_logger - INFO - Fetching savings records for the date: 2024-08-07
+2025-11-16 23:40:55,132 - my_logger - DEBUG - Deleted all the savings records for the date: 2024-08-07
+2025-11-16 23:40:55,208 - my_logger - DEBUG - Inserted 1 row of savings record for the date: 2024-08-07
+2025-11-16 23:40:55,270 - my_logger - DEBUG - Inserted 1 row of savings record for the date: 2024-08-07
+2025-11-23 22:31:33,431 - my_logger - INFO - Fetching expense records for the date: 2024-08-01
+2025-11-23 22:31:35,891 - my_logger - INFO - Fetching savings records for the date: 2024-08-01
+2025-11-23 23:41:21,325 - my_logger - INFO - Fetching expense records for the date: 2024-08-01
+2025-11-23 23:41:23,030 - my_logger - INFO - Fetching savings records for the date: 2024-08-01
+2025-11-23 23:43:08,182 - my_logger - INFO - Fetching expense records for the date: 2024-08-01
+2025-11-23 23:43:08,635 - my_logger - INFO - Fetching savings records for the date: 2024-08-01
+2025-11-23 23:44:13,479 - my_logger - INFO - Fetching expense records for the date: 2024-08-01
+2025-11-23 23:44:13,576 - my_logger - INFO - Fetching savings records for the date: 2024-08-01
+2025-11-23 23:44:39,089 - my_logger - INFO - Fetching expense records for the date: 2024-08-01
+2025-11-23 23:44:39,254 - my_logger - INFO - Fetching savings records for the date: 2024-08-01
+2025-11-23 23:44:54,541 - my_logger - INFO - Fetching expense records for the date: 2024-08-01
+2025-11-23 23:44:54,674 - my_logger - INFO - Fetching savings records for the date: 2024-08-01
+2025-11-23 23:45:11,108 - my_logger - INFO - Fetching expense records for the date: 2024-08-01
+2025-11-23 23:45:11,217 - my_logger - INFO - Fetching savings records for the date: 2024-08-01
+2025-11-23 23:45:36,755 - my_logger - INFO - Fetching expense records for the date: 2024-08-01
+2025-11-23 23:45:36,804 - my_logger - INFO - Fetching savings records for the date: 2024-08-01
+2025-11-23 23:46:00,897 - my_logger - INFO - Fetching expense records for the date: 2024-08-01
+2025-11-23 23:46:01,028 - my_logger - INFO - Fetching savings records for the date: 2024-08-01
+2025-11-23 23:47:18,736 - my_logger - INFO - Fetching expense records for the date: 2024-08-01
+2025-11-23 23:47:18,973 - my_logger - INFO - Fetching savings records for the date: 2024-08-01
+2025-11-23 23:49:20,697 - my_logger - INFO - Fetching expense records for the date: 2024-08-01
+2025-11-23 23:49:20,786 - my_logger - INFO - Fetching savings records for the date: 2024-08-01
+2025-11-23 23:50:21,784 - my_logger - INFO - Fetching expense records for the date: 2024-08-01
+2025-11-23 23:50:22,671 - my_logger - INFO - Fetching savings records for the date: 2024-08-01
+2025-11-23 23:50:49,114 - my_logger - INFO - Fetching expense records for the date: 2024-08-01
+2025-11-23 23:50:49,239 - my_logger - INFO - Fetching savings records for the date: 2024-08-01
+2025-11-23 23:51:38,382 - my_logger - INFO - Fetching expense records for the date: 2024-08-01
+2025-11-23 23:51:39,175 - my_logger - INFO - Fetching savings records for the date: 2024-08-01
+2025-11-23 23:52:50,851 - my_logger - INFO - Fetching expense records for the date: 2024-08-01
+2025-11-23 23:52:51,080 - my_logger - INFO - Fetching savings records for the date: 2024-08-01
+2025-11-23 23:54:42,084 - my_logger - INFO - Fetching expense records for the date: 2024-08-01
+2025-11-23 23:54:42,357 - my_logger - INFO - Fetching savings records for the date: 2024-08-01
+2025-11-24 00:05:34,789 - my_logger - INFO - Fetching expense records for the date: 2024-08-01
+2025-11-24 00:05:36,293 - my_logger - INFO - Fetching savings records for the date: 2024-08-01
+2025-11-24 00:06:56,744 - my_logger - INFO - Fetching expense records for the date: 2024-08-01
+2025-11-24 00:06:56,989 - my_logger - INFO - Fetching savings records for the date: 2024-08-01
+2025-11-24 00:07:41,056 - my_logger - INFO - Fetching expense records for the date: 2024-08-01
+2025-11-24 00:07:41,093 - my_logger - INFO - Fetching savings records for the date: 2024-08-01
+2025-11-24 00:07:56,533 - my_logger - INFO - Fetching expense records for the date: 2024-08-01
+2025-11-24 00:07:56,614 - my_logger - INFO - Fetching savings records for the date: 2024-08-01
+2025-11-24 00:08:48,497 - my_logger - INFO - Fetching expense records for the date: 2024-08-01
+2025-11-24 00:08:48,560 - my_logger - INFO - Fetching savings records for the date: 2024-08-01
+2025-11-24 00:09:08,950 - my_logger - INFO - Fetching expense records for the date: 2024-08-01
+2025-11-24 00:09:09,100 - my_logger - INFO - Fetching savings records for the date: 2024-08-01
+2025-11-24 00:10:01,925 - my_logger - INFO - Fetching expense records for the date: 2024-08-01
+2025-11-24 00:10:01,974 - my_logger - INFO - Fetching savings records for the date: 2024-08-01
+2025-11-24 00:13:03,739 - my_logger - INFO - Fetching expense records for the date: 2024-08-01
+2025-11-24 00:13:03,856 - my_logger - INFO - Fetching savings records for the date: 2024-08-01
+2025-11-24 00:13:54,331 - my_logger - INFO - Fetching expense records for the date: 2024-08-01
+2025-11-24 00:13:54,375 - my_logger - INFO - Fetching savings records for the date: 2024-08-01
+2025-11-24 00:15:24,084 - my_logger - INFO - Fetching expense records for the date: 2024-08-01
+2025-11-24 00:15:24,166 - my_logger - INFO - Fetching savings records for the date: 2024-08-01
+2025-11-24 00:16:54,377 - my_logger - INFO - Fetching expense records for the date: 2024-08-01
+2025-11-24 00:16:54,760 - my_logger - INFO - Fetching savings records for the date: 2024-08-01
+2025-11-24 00:17:08,009 - my_logger - INFO - Fetching expense records for the date: 2024-08-01
+2025-11-24 00:17:08,121 - my_logger - INFO - Fetching savings records for the date: 2024-08-01
+2025-11-24 00:18:26,911 - my_logger - INFO - Fetching expense records for the date: 2024-08-01
+2025-11-24 00:18:27,082 - my_logger - INFO - Fetching savings records for the date: 2024-08-01
+2025-11-24 00:18:33,879 - my_logger - INFO - Fetching expense records for the date: 2024-08-01
+2025-11-24 00:18:33,944 - my_logger - INFO - Fetching savings records for the date: 2024-08-01
+2025-11-24 00:18:47,020 - my_logger - INFO - Fetching expense records for the date: 2024-08-01
+2025-11-24 00:18:47,066 - my_logger - INFO - Fetching savings records for the date: 2024-08-01
+2025-11-24 00:18:51,629 - my_logger - INFO - Fetching expense records for the date: 2024-08-01
+2025-11-24 00:18:51,696 - my_logger - INFO - Fetching savings records for the date: 2024-08-01
+2025-11-24 00:18:53,842 - my_logger - INFO - Fetching expense records for the date: 2024-08-01
+2025-11-24 00:18:54,008 - my_logger - INFO - Fetching savings records for the date: 2024-08-01
+2025-11-24 00:18:54,519 - my_logger - INFO - Fetching expense records for the date: 2024-08-01
+2025-11-24 00:18:54,804 - my_logger - INFO - Fetching expense records for the date: 2024-08-01
+2025-11-24 00:18:55,032 - my_logger - INFO - Fetching savings records for the date: 2024-08-01
+2025-11-24 00:18:55,423 - my_logger - INFO - Fetching expense records for the date: 2024-08-01
+2025-11-24 00:18:55,491 - my_logger - INFO - Fetching savings records for the date: 2024-08-01
+2025-11-24 00:19:05,630 - my_logger - INFO - Fetching expense records for the date: 2024-08-01
+2025-11-24 00:19:05,705 - my_logger - INFO - Fetching savings records for the date: 2024-08-01
+2025-11-24 00:19:05,788 - my_logger - INFO - Fetching expense records for the date: 2024-08-01
+2025-11-24 00:19:06,219 - my_logger - INFO - Fetching expense records for the date: 2024-08-01
+2025-11-24 00:19:06,219 - my_logger - INFO - Fetching expense records for the date: 2024-08-01
+2025-11-24 00:19:06,541 - my_logger - INFO - Fetching savings records for the date: 2024-08-01
+2025-11-24 00:19:06,746 - my_logger - INFO - Fetching expense records for the date: 2024-08-01
+2025-11-24 00:19:07,028 - my_logger - INFO - Fetching expense records for the date: 2024-08-01
+2025-11-24 00:19:07,150 - my_logger - INFO - Fetching savings records for the date: 2024-08-01
+2025-11-24 00:19:17,483 - my_logger - INFO - Fetching expense records for the date: 2024-08-02
+2025-11-24 00:19:17,686 - my_logger - INFO - Fetching savings records for the date: 2024-08-02
+2025-11-24 00:39:24,433 - my_logger - INFO - Fetching expense records for the date: 2024-08-02
+2025-11-24 00:39:24,962 - my_logger - INFO - Fetching savings records for the date: 2024-08-02
+2025-11-24 00:39:32,876 - my_logger - INFO - Fetching expense records for the date: 2024-08-02
+2025-11-24 00:39:33,375 - my_logger - INFO - Fetching savings records for the date: 2024-08-02
+2025-11-24 00:40:25,369 - my_logger - INFO - Fetching expense records for the date: 2024-08-02
+2025-11-24 00:40:25,410 - my_logger - INFO - Fetching savings records for the date: 2024-08-02
+2025-11-24 00:40:47,853 - my_logger - INFO - Fetching expense records for the date: 2024-08-02
+2025-11-24 00:40:47,903 - my_logger - INFO - Fetching savings records for the date: 2024-08-02
+2025-11-24 00:40:51,279 - my_logger - INFO - Fetching expense records for the date: 2024-08-02
+2025-11-24 00:40:51,345 - my_logger - INFO - Fetching savings records for the date: 2024-08-02
+2025-11-24 00:40:52,171 - my_logger - DEBUG - Deleted all the savings records for the date: 2024-08-02
+2025-11-24 00:43:48,733 - my_logger - INFO - Fetching expense records for the date: 2024-08-02
+2025-11-24 00:43:48,995 - my_logger - INFO - Fetching savings records for the date: 2024-08-02
+2025-11-24 00:43:50,033 - my_logger - DEBUG - Deleted all the savings records for the date: 2024-08-02
+2025-11-24 00:43:50,316 - my_logger - DEBUG - Inserted 1 row of savings record for the date: 2024-08-02

@@ -43,10 +43,10 @@ def fetch_expense_records_for_date(expense_date):
         return expenses
 
 
-def insert_expense(expense_date, amount, category, notes):
+def insert_expense(expense_date, amount, category, ref, notes):
     with get_db_cursor(commit=True) as cursor:
-        cursor.execute("insert into expenses (expense_date, amount, category, notes) values (%s, %s, %s, %s)"
-                       , (expense_date, amount, category, notes,))
+        cursor.execute("insert into expenses (expense_date, amount, category, ref, notes) values (%s, %s, %s, %s, %s)"
+                       , (expense_date, amount, category, ref, notes,))
         logger.debug(f"Inserted 1 row of expense record for the date: {expense_date}")
 
 
@@ -95,11 +95,11 @@ def fetch_all_savings_records():
         return expenses
 
 
-def insert_savings(date_, amt_invested, investment_mode, scheme_symbols, compounding, qty_units, return_pct, duration):
+def insert_savings(date_, amt_invested, investment_mode, investment_id, deposit_type, qty_units, return_pct, duration):
     with get_db_cursor(commit=True) as cursor:
-        cursor.execute("insert into savings_transactions (date, amt_invested, investment_mode, scheme_symbols, compounding, "
+        cursor.execute("insert into savings_transactions (date, amt_invested, investment_mode, investment_id, deposit_type, "
                        "qty_units, return_pct, duration) values (%s, %s, %s, %s, %s, %s, %s, %s)"
-                       , (date_, amt_invested, investment_mode, scheme_symbols, compounding, qty_units, return_pct,
+                       , (date_, amt_invested, investment_mode, investment_id, deposit_type, qty_units, return_pct,
                           duration,))
         logger.debug(f"Inserted 1 row of savings record for the date: {date_}")
 
@@ -110,12 +110,53 @@ def delete_savings_for_date(date_):
         logger.debug(f"Deleted all the savings records for the date: {date_}")
 
 
-def fetch_schemes():
+def fetch_schemes(asset_type):
     with get_db_cursor() as cursor:
-        cursor.execute("select * from asset_master")
+        cursor.execute("select * from asset_master where asset_type = %s",(asset_type,))
         expenses = cursor.fetchall()
         return list(expenses)
 
+
+def fetch_scheme_symbols():
+    with get_db_cursor() as cursor:
+        cursor.execute("select distinct trim(a.scheme_symbol) as investment_id, scheme_name, investment_mode "
+                       "from savings_transactions s left join asset_master a "
+                       "on trim(s.investment_id) = trim(a.scheme_symbol)")
+        codes = cursor.fetchall()
+        return list(codes)
+
+
+def fetch_debts():
+    with get_db_cursor() as cursor:
+        cursor.execute("select * from debt_master where status='Active'")
+        debts = cursor.fetchall()
+        return debts
+
+def delete_debts():
+    with get_db_cursor() as cursor:
+        cursor.execute("delete from debt_master where status='Active'")
+        debts = cursor.fetchall()
+        return debts
+
+def insert_debts(debt_id, debt_type, lender, start_date, principle_amount, interest_rate, duration_months, interest_type, description, status):
+    with get_db_cursor(commit=True) as cursor:
+        cursor.execute(
+            "insert into debt_master (debt_id, debt_type, lender, start_date, principle_amount, interest_rate, duration_months, interest_type, description, status) values (%s, %s, %s, %s, %s, %s, %s, %s, %s, %s)"
+            , (debt_id, debt_type, lender, start_date, principle_amount, interest_rate, duration_months, interest_type, description, status))
+        logger.debug(f"Inserted 1 row of debt record with ID : {debt_id}.")
+
+
+def fetch_debts_transactions(date_):
+    with get_db_cursor() as cursor:
+        cursor.execute("select * from debt_installments where installment_date=%s", (date_,))
+        debts = cursor.fetchall()
+        return debts
+
+
+def insert_debt_transactions(date_, amount, ref):
+    with get_db_cursor(commit=True) as cursor:
+        cursor.callproc("populate_debt_installments", (date_, amount, ref,))
+        logger.debug(f"Inserted the following records - Date: {date_}, Amount: {amount}, Debt ID: {ref}.")
 
 if __name__ == "__main__":
     pass

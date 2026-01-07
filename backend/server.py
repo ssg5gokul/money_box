@@ -10,23 +10,28 @@ app = FastAPI()
 
 
 class Expenses(BaseModel):
+    id: int
     amount: float
     category: str
-    ref: str
+    ref_investment: Optional[str]
+    ref_debt: Optional[int]
     notes: str
 
 
 class Savings(BaseModel):
-    amt_invested: float
+    investment_id: int
+    start_date: date
+    investment_code: str
     investment_mode: str
-    investment_id: str
-    deposit_type: str
+    amount_invested: float
+    compounding: str
     qty_units: float
     return_pct: float
     duration: int
 
 class Debt(BaseModel):
-    debt_id: str
+    debt_id: int
+    debt_acc_num: str
     debt_type: str
     lender: str
     start_date: str
@@ -43,7 +48,7 @@ class Schemes(BaseModel):
     scheme_name: str
     asset_type: Literal["Mutual Funds", "Stocks"]
 
-
+# Expense DTO
 @app.get("/expenses/{expense_date}", response_model=List[Expenses])
 def get_expenses_for_date(expense_date: date):
     expenses = db_helper.fetch_expense_records_for_date(expense_date)
@@ -51,11 +56,10 @@ def get_expenses_for_date(expense_date: date):
 
 @app.post("/expense/{expense_date}")
 def post_expenses_for_date(expense_date: date, expenses: List[Expenses]):
-    db_helper.delete_expense_for_date(expense_date)
     for expense in expenses:
-        db_helper.insert_expense(expense_date, amount=expense.amount, category=expense.category, ref=expense.ref, notes=expense.notes)
+        db_helper.insert_expense(id=expense.id, expense_date= expense_date, amount=expense.amount, category=expense.category, ref_investment=expense.ref_investment, ref_debt = expense.ref_debt, notes=expense.notes)
         if expense.category == 'Debts':
-            db_helper.insert_debt_transactions(expense.ref, expense_date, expense.amount)
+            db_helper.insert_debt_transactions(ref=expense.ref_debt, date=expense_date, amount=expense.amount)
 
     return {"message": "Records updated successfully"}
 
@@ -72,8 +76,8 @@ def get_expenses_by_month(year: int):
     return expense_summary
 
 
-# Savings
-@app.get("/savings/{savings_date}", response_model=List[Savings])
+# Savings DTO
+@app.get("/savings", response_model=List[Savings])
 def get_savings_for_date(savings_date: date):
     savings = db_helper.fetch_savings_records_for_date(savings_date)
     return savings
@@ -92,9 +96,9 @@ def post_savings_for_date(savings_date: date, savings: List[Savings]):
     return {"message": "Records updated successfully"}
 
 
-@app.get("/savings_schemes/{asset_type}")
-def get_schemes(asset_type: Literal["Mutual Funds", "Stocks"]):
-    schemes = db_helper.fetch_schemes(asset_type)
+@app.get("/savings_schemes")
+def get_schemes():
+    schemes = db_helper.fetch_schemes()
     return schemes
 
 
@@ -103,22 +107,22 @@ def get_savings_codes():
     codes = db_helper.fetch_scheme_symbols()
     return codes
 
+# Debts DTO
 @app.get("/debts")
 def get_debts():
     debts = db_helper.fetch_debts()
     return debts
 
-@app.get("/debts_transactions/{debt_transaction_date}")
-def get_debts(debt_transaction_date: date):
-    debts = db_helper.fetch_debts_transactions(debt_transaction_date)
+@app.get("/debts_transactions_by_acc/{debt_id}")
+def get_debts_by_acc(debt_id: int):
+    debts = db_helper.fetch_debts_transactions_by_acc(debt_id)
     return debts
-
 
 @app.post("/debts")
 def post_debts_for_date(debts: List[Debt]):
-    db_helper.delete_debts()
     for debt in debts:
-        db_helper.insert_debts(debt_id=debt.debt_id, debt_type = debt.debt_type, lender = debt.lender,
+        db_helper.insert_debts(debt_id = debt.debt_id,
+                               debt_acc_num=debt.debt_acc_num, debt_type = debt.debt_type, lender = debt.lender,
                                start_date = debt.start_date, principle_amount = debt.principle_amount,
                                interest_rate = debt.interest_rate, duration_months =debt.duration_months,
                                interest_type = debt.interest_type, description= debt.description, status= debt.status)

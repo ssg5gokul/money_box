@@ -4,16 +4,16 @@ from fastapi import FastAPI, Query
 from datetime import date
 import db_helper
 from typing import List, Optional, Literal
-from pydantic import BaseModel
+from pydantic import BaseModel, ConfigDict
 
 app = FastAPI()
 
 
 class Expenses(BaseModel):
-    id: int
+    id: Optional[int] = None
     amount: float
     category: str
-    ref_investment: Optional[str]
+    ref_investment: Optional[int]
     ref_debt: Optional[int]
     notes: str
 
@@ -21,13 +21,13 @@ class Expenses(BaseModel):
 class Savings(BaseModel):
     investment_id: int
     start_date: date
-    investment_code: str
     investment_mode: str
-    amount_invested: float
-    compounding: str
-    qty_units: float
-    return_pct: float
-    duration: int
+    deposit_account: Optional[str] = None
+    market_code: Optional[str] = None
+    compounding: Optional[str] = None
+    return_pct: float 
+    duration: int  
+    qty_units: Optional[float] = None
 
 class Debt(BaseModel):
     debt_id: int
@@ -41,6 +41,15 @@ class Debt(BaseModel):
     interest_type: str
     status: str
     description: str
+
+class SavingsTransactions(BaseModel):
+    transaction_id: int
+    date: date
+    investment_id: int
+    amt_invested: float
+    current_price_per_unit: float
+    qty: Optional[float] = None
+    user: str
 
 
 class Schemes(BaseModel):
@@ -57,9 +66,16 @@ def get_expenses_for_date(expense_date: date):
 @app.post("/expense/{expense_date}")
 def post_expenses_for_date(expense_date: date, expenses: List[Expenses]):
     for expense in expenses:
-        db_helper.insert_expense(id=expense.id, expense_date= expense_date, amount=expense.amount, category=expense.category, ref_investment=expense.ref_investment, ref_debt = expense.ref_debt, notes=expense.notes)
         if expense.category == 'Debts':
             db_helper.insert_debt_transactions(ref=expense.ref_debt, date=expense_date, amount=expense.amount)
+
+        elif expense.category == 'Savings':
+            print(expense.ref_investment)
+            db_helper.insert_savings_transaction(date=expense_date, investment_id =expense.ref_investment,
+                    amt_invested = expense.amount, user = 'AUTO')
+
+
+        db_helper.insert_expense(id=expense.id, expense_date= expense_date, amount=expense.amount, category=expense.category, ref_investment=expense.ref_investment, ref_debt = expense.ref_debt, notes=expense.notes)
 
     return {"message": "Records updated successfully"}
 
@@ -78,33 +94,38 @@ def get_expenses_by_month(year: int):
 
 # Savings DTO
 @app.get("/savings", response_model=List[Savings])
-def get_savings_for_date(savings_date: date):
-    savings = db_helper.fetch_savings_records_for_date(savings_date)
+def get_savings():
+    savings = db_helper.fetch_savings()
     return savings
 
 
-@app.post("/savings/{savings_date}")
-def post_savings_for_date(savings_date: date, savings: List[Savings]):
-    db_helper.delete_savings_for_date(savings_date)
+@app.post("/savings")
+def post_savings(savings: List[Savings]):
     for saving in savings:
-        db_helper.insert_savings(date_=savings_date, amt_invested=saving.amt_invested,
-                                 investment_mode=saving.investment_mode, investment_id= saving.investment_id,
-                                 deposit_type= saving.deposit_type, qty_units= saving.qty_units,
-                                 return_pct= saving.return_pct, duration= saving.duration)
-
+        db_helper.insert_savings(investment_id = saving.investment_id, start_date = saving.start_date,
+                                 investment_mode = saving.investment_mode,
+                                 deposit_account = saving.deposit_account, market_code = saving.market_code,
+                                 compounding = saving.compounding, return_pct = saving.return_pct,
+                                 duration = saving.duration, qty_units = saving.qty_units)
 
     return {"message": "Records updated successfully"}
 
+@app.get("/savings_transactions", response_model=List[SavingsTransactions])
+def get_savings_transactions():
+    savings = db_helper.fetch_savings_transactions()
+    print(savings)
+    return savings
 
+# Savings codes and accounts
 @app.get("/savings_schemes")
 def get_schemes():
     schemes = db_helper.fetch_schemes()
     return schemes
 
 
-@app.get("/savings_codes")
-def get_savings_codes():
-    codes = db_helper.fetch_scheme_symbols()
+@app.get("/current_investments")
+def get_deposit_accounts():
+    codes = db_helper.fetch_current_investments()
     return codes
 
 # Debts DTO

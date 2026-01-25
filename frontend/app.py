@@ -1,96 +1,12 @@
 import pandas as pd
+import numpy as np
 import streamlit as st
-from datetime import datetime
-import requests
-from st_aggrid import AgGrid, GridOptionsBuilder, GridUpdateMode
+from datetime import datetime, date, timedelta
+from bootstrap import setup_project_root
 
-API_URL = "http://127.0.0.1:8000"
+setup_project_root()
 
-MAX_ROWS = 10
-
-def get_schemes():
-    schemes_response = requests.get(f"{API_URL}/savings_schemes")
-    try:
-        schemes_response.raise_for_status()
-        schemes = schemes_response.json()
-
-    except requests.exceptions.HTTPError:
-        st.error(f"{schemes_response.status_code} - {schemes_response.reason}")
-        schemes = []
-
-    return schemes
-
-@st.cache_data
-def get_investments():
-    savings_response = requests.get(f"{API_URL}/savings")
-
-    try:
-        savings_response.raise_for_status()
-        savings = savings_response.json()
-
-    except requests.exceptions.HTTPError:
-        st.error(f"{savings_response.status_code} - {savings_response.reason}")
-        savings = []
-
-    return savings
-
-
-@st.cache_data
-def get_debts():
-    debt_response = requests.get(f"{API_URL}/debts")
-
-    try:
-        debt_response.raise_for_status()
-        debts = debt_response.json()
-
-    except requests.exceptions.HTTPError:
-        st.error(f"{debt_response.status_code} - {debt_response.reason}")
-        debts = []
-
-    return debts
-
-def current_investments():
-    invested_response = requests.get(f"{API_URL}/current_investments")
-
-    try:
-        invested_response.raise_for_status()
-        investments = invested_response.json()
-
-    except requests.exceptions.HTTPError:
-        st.error(f"{invested_response.status_code} - {invested_response.reason}")
-        investments = []
-
-    return investments
-
-
-@st.cache_data
-def get_investment_transactions():
-    savings_response = requests.get(f"{API_URL}/savings_transactions")
-    try:
-        savings_response.raise_for_status()
-        savings = savings_response.json()
-
-    except requests.exceptions.HTTPError:
-        st.error(f"{savings_response.status_code} - {savings_response.reason}")
-        savings = []
-
-    return savings
-
-
-def add_row_generic(state_key, id_col):
-    # 1. Get the current DF from session state
-    df = st.session_state[state_key]
-
-    next_id = df[id_col].max().astype(int) + 1
-
-    # 2. Create a new row with empty strings for all existing columns
-    new_row = pd.DataFrame([{col: None for col in df.columns}])
-
-    new_row[id_col] = next_id
-
-    # 3. Append and save back to the specific session state key
-    st.session_state[state_key] = pd.concat([df, new_row], ignore_index=True)
-
+from backend.api_client import APIClient
 
 st.set_page_config(layout="wide")
 
@@ -103,21 +19,25 @@ with tab_input:
     tab_expense, tab_savings, tab_debts = st.tabs(["Expense", "Savings", "Debts"])
 
     with tab_expense:
-        selected_date = st.date_input("Enter Date", datetime.today(), label_visibility="collapsed")
-        expense_response = requests.get(f"{API_URL}/expenses/{selected_date}")
-        codes_response = current_investments()
+        ninety_days_ago = date.today() - timedelta(days=90)
+        selected_date = st.date_input("Enter Date", date.today(), min_value=ninety_days_ago, label_visibility="collapsed")
 
-        try:
-            expense_response.raise_for_status()
-            expense_data = expense_response.json()
+        #Expense data
+        expense_response = APIClient(f'expenses/{selected_date}')
+        expense_data = expense_response.get_data()
 
-        except requests.exceptions.HTTPError:
-            st.error(f"{expense_response.status_code} - {expense_response.reason}")
-            expense_data = []
+        #Equity/ETF symbols and Mutual funds codes
+        codes_response = APIClient('current_investments')
+        codes_data = codes_response.get_data()
+        codes = {code['investment_id']: code['investment'] for code in codes_data}
+
+        #Loan accounts
+        debt_response = APIClient('debts')
+        debt_data = debt_response.get_data()
+        debts_accounts = {debt['debt_id']: debt['debt_acc_num'] for debt in debt_data}
 
         categories = ["Rent", "Shopping", "Food", "Entertainment", "Savings", "Debts", "Other"]
-        codes = {code['investment_id']:code['investment'] for code in codes_response}
-        debts_accounts = {debt['debt_id']:debt['debt_acc_num'] for debt in get_debts()}
+
         expenses = []
 
         expense_columns = [
@@ -126,8 +46,6 @@ with tab_input:
         ]
 
         expense_df = pd.DataFrame(expense_data, columns=expense_columns)
-
-        expense_df.set_index("id", inplace=True)
 
         expense_column_config = {
             "id": st.column_config.NumberColumn(
@@ -159,27 +77,22 @@ with tab_input:
             filtered_df = expense_edited_df[expense_edited_df["amount"] > 0]
             payload = filtered_df.copy()
             try:
-                expense_edited_df["expense_date"] = expense_edited_df["expense_date"].astype(str)
-
-            except KeyError as e:
-                expense_edited_df["expense_date"] = "2025-12-01"
-
-            try:
-                expense_submit_response = requests.post(
-                    f"{API_URL}/expense/{selected_date}",
-                    json=payload.to_dict(orient="records")
-                )
-
-                expense_submit_response.raise_for_status()
+                expense_response.post_data(payload)
                 st.success("Expenses saved successfully")
 
-            except Exception as e:
-                st.error(f"Failed to save Expenses - {e}")
+            except RuntimeError as e:
+                st.error(f"Failed to save expense - {e}")
 
 
     with tab_savings:
-        savings_data = get_investments()
-        schemes = get_schemes()
+        #Investment data
+        savings_response = APIClient('savings')
+        savings_data = savings_response.get_data()
+
+        #Equity/ETF symbols and Mutual Funds codes
+        schemes_response = APIClient('savings_schemes')
+        schemes = schemes_response.get_data()
+        market_code_opt = [codes['scheme_symbol'] for codes in schemes]
 
         savings_columns = [
             "investment_id", "start_date", "investment_mode", "deposit_account", "market_code",
@@ -192,13 +105,11 @@ with tab_input:
             savings_df.start_date = pd.to_datetime(savings_df.start_date , errors="coerce").dt.date
 
         except TypeError:
-            savings_df.start_date  = datetime(2020,1,1)
+            savings_df.start_date  = datetime(2025,1,1)
 
         compounding_opt = ['Daily','Quarterly','Monthly','Yearly','NA']
 
         investment_mode_opt = ['FD','RD','Stocks','Mutual Funds','Others']
-
-        market_code_opt = [codes['scheme_symbol'] for codes in schemes]
 
         st.subheader("Savings Schemes")
 
@@ -225,111 +136,50 @@ with tab_input:
 
 
         if st.button("Submit", key='Savings_submit'):
-            filtered_df = savings_edited_df[~savings_edited_df["deposit_account"].isna()]
+            filtered_df = savings_edited_df[ ~( savings_edited_df["deposit_account"].isna() &
+                            savings_edited_df["market_code"].isna())]
             payload = filtered_df.copy()
             try:
                 payload["start_date"] = payload["start_date"].astype(str)
 
             except KeyError as e:
-                payload["start_date"] = datetime(2020, 1, 1)
+                payload["start_date"] = datetime(2025, 1, 1)
 
             try:
-                savings_submit_response = requests.post(
-                    f"{API_URL}/savings",
-                    json=payload.to_dict(orient="records")
-                )
-                savings_submit_response.raise_for_status()
-                st.success("Savings saved successfully")
-            except Exception as e:
-                st.error(f"Failed to save Savings - {e}")
+                savings_response.post_data(payload)
+                st.success("Investments saved successfully")
 
+            except RuntimeError as e:
+                st.error(f"Failed to save investments - {e}")
 
         st.header("Savings Transactions")
 
-        current_investment_ids = current_investments()
+        # Equity/ETF symbols and Mutual funds codes
+        codes_response = APIClient('current_investments')
+        codes_data = codes_response.get_data()
+        codes = {code['investment_id']: code['investment'] for code in codes_data}
 
-        codes = {code['investment_id']: code['investment'] for code in current_investment_ids}
 
         investment_sel = st.selectbox("Savings Account/Code", options=codes, key="inv_acc_sel", format_func=lambda x: codes[x])
-        # 1. Initialize Session State ONLY once
-        if "savings_trans_df" not in st.session_state:
-            savings_trans_data = get_investment_transactions()
-            savings_trans_columns = [
-                "transaction_id", "date", "investment_id",
-                "amt_invested", "current_price_per_unit", "qty", "user"
-            ]
-            savings_trans_df = pd.DataFrame(savings_trans_data, columns=savings_trans_columns)
-            # Ensure date format is standard ISO string for AgGrid
-            savings_trans_df['date'] = pd.to_datetime(savings_trans_df['date'], errors="coerce").dt.strftime('%Y-%m-%d')
-            st.session_state.savings_trans_df = savings_trans_df
 
+        # savings_trans_data = get_investment_transactions()
+        savings_trans_response = APIClient(f'savings_transactions/{investment_sel}')
+        savings_trans_data = savings_trans_response.get_data()
 
+        savings_trans_columns = [
+            "transaction_id", "date", "investment_id",
+            "amt_invested", "current_price_per_unit", "qty", "user"
+        ]
+        savings_trans_df = pd.DataFrame(savings_trans_data, columns=savings_trans_columns)
 
-
-        st.button(
-            "➕ Add row",
-            on_click=add_row_generic,
-            args=["savings_trans_df", "transaction_id"]
-        )
-
-        # 4. Build Grid using the Session State as the source of truth
-        gb = GridOptionsBuilder.from_dataframe(st.session_state.savings_trans_df)
-
-        # Configure columns
-        gb.configure_column("transaction_id", header_name="ID", editable=False)
-
-        gb.configure_column("date", header_name="Date", editable=False)
-
-        gb.configure_column("investment_id", header_name="Investment ID", editable=False)
-
-        gb.configure_column("amt_invested", editable=False, header_name="Amount")
-
-        gb.configure_column("current_price_per_unit", editable=False, header_name="Current Price per Unit")
-
-        gb.configure_column("qty", editable=True, header_name="Quantity")
-
-        gb.configure_column("user", editable= False, header_name="User")
-
-        gridOptions = gb.build()
-
-        grid_response = AgGrid(
-            st.session_state.savings_trans_df,
-            editable=True,
-            gridOptions=gridOptions,
-            key="savings_grid",
-            update_on=["cellValueChanged"]
-        )
-
-        # Update the data in state if the user edited something
-        if grid_response is not None:
-            st.session_state.savings_trans_df = grid_response["data"]
-
-        if st.button("Submit", key='Savings_transactions_submit'):
-            savings_trans_df_edited_df = st.session_state.savings_trans_df
-            filtered_df = savings_trans_df_edited_df[~savings_trans_df_edited_df["investment_id"].isna()]
-            payload = filtered_df.copy()
-            try:
-                payload["date"] = payload["date"].astype(str)
-
-            except KeyError as e:
-                payload["ate"] = datetime(2020, 1, 1)
-
-            try:
-                savings_submit_response = requests.post(
-                    f"{API_URL}/savings",
-                    json=payload.to_dict(orient="records")
-                )
-                savings_submit_response.raise_for_status()
-                st.success("Savings saved successfully")
-            except Exception as e:
-                st.error(f"Failed to save Savings data - {e}")
-
-
-
+        st.table(savings_trans_df)
 
     with tab_debts:
-        debt_data = get_debts()
+        #Loan details
+        debt_response = APIClient('debts')
+        debt_data = debt_response.get_data()
         debts_accounts = {debt['debt_id']: debt['debt_acc_num'] for debt in debt_data}
+
         required_columns = [
             "debt_id", "debt_acc_num", "debt_type", "lender", "start_date", "principle_amount",
             "interest_rate", "duration_months", "interest_type",
@@ -394,29 +244,20 @@ with tab_input:
                 payload["start_date"] = datetime(2020,1,1)
 
             try:
-                debt_submit_response = requests.post(
-                    f"{API_URL}/debts",
-                    json=payload.to_dict(orient="records")
-                )
-                debt_submit_response.raise_for_status()
-                st.success("Debts saved successfully")
-            except Exception as e:
-                st.error(f"Failed to save debts - {e}")
+                debt_response.post_data(payload)
+                st.success("Loan details saved successfully")
+
+            except RuntimeError as e:
+                st.error(f"Failed to save loan details - {e}")
 
 
         st.subheader("Debt Transactions")
-        # debt_date = st.date_input("Enter Date", datetime.today(), label_visibility="collapsed", key="debt_date")
+
         debt_acc_sel = st.selectbox("Debt Account", options=debts_accounts.keys(), format_func=lambda x: debts_accounts.get(x), key="debt_acc_sel")
 
-        debt_transactions_response = requests.get(f"{API_URL}/debts_transactions_by_acc/{debt_acc_sel}")
-
-        try:
-            debt_transactions_response.raise_for_status()
-            debt_transactions = debt_transactions_response.json()
-
-        except requests.exceptions.HTTPError:
-            st.error(f"{debt_transactions_response.status_code} - {debt_transactions_response.reason}")
-            debt_transactions = []
+        #Loan EMI installments
+        debt_trans_response = APIClient(f'debts_transactions_by_acc/{debt_acc_sel}')
+        debt_transactions = debt_trans_response.get_data()
 
         debt_transactions_df = pd.DataFrame(debt_transactions)
         st.table(debt_transactions_df)

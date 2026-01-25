@@ -1,5 +1,5 @@
-import mysql.connector
 from contextlib import contextmanager
+import mysql.connector
 import my_logger
 
 logger = my_logger.config_logger()
@@ -43,20 +43,25 @@ def fetch_expense_records_for_date(expense_date):
         cursor.execute("select * from fact_expenses where expense_date=%s", (expense_date,))
         expenses = cursor.fetchall()
         return expenses
+#
+# def insert_expense(id, expense_date, amount, category, notes, ref_investment, ref_debt):
+#     with get_db_cursor(commit=True) as cursor:
+#         cursor.execute("INSERT INTO fact_expenses "
+#                        "(id, expense_date, amount, category, notes, ref_investment, ref_debt) "
+#                        "VALUES (%s, %s, %s, %s, %s, %s, %s) as new_data "
+#                        "ON  DUPLICATE KEY UPDATE "
+#                        "expense_date = new_data.expense_date, amount = new_data.amount, "
+#                        "category = new_data.category, ref_investment = new_data.ref_investment, ref_debt = "
+#                        "new_data.ref_debt, notes = new_data.notes;"
+#                        , (id, expense_date, amount, category, notes, ref_investment, ref_debt,))
+#         logger.debug(f"Inserted 1 row of expense record for the date: {expense_date}")
 
 
 def insert_expense(id, expense_date, amount, category, notes, ref_investment, ref_debt):
     with get_db_cursor(commit=True) as cursor:
-        cursor.execute("INSERT INTO fact_expenses "
-                       "(id, expense_date, amount, category, notes, ref_investment, ref_debt) "
-                       "VALUES (%s, %s, %s, %s, %s, %s, %s) as new_data "
-                       "ON  DUPLICATE KEY UPDATE "
-                       "expense_date = new_data.expense_date, amount = new_data.amount, "
-                       "category = new_data.category, ref_investment = new_data.ref_investment, ref_debt = "
-                       "new_data.ref_debt, notes = new_data.notes;"
+        cursor.callproc("populate_fact_expenses"
                        , (id, expense_date, amount, category, notes, ref_investment, ref_debt,))
         logger.debug(f"Inserted 1 row of expense record for the date: {expense_date}")
-
 
 #savings DAO
 def fetch_savings():
@@ -83,18 +88,16 @@ def insert_savings(investment_id, start_date, investment_mode, deposit_account, 
 
 
 # Savings Transactions DAO
-def fetch_savings_transactions():
+def fetch_savings_transactions(inv_id):
     with get_db_cursor() as cursor:
-        cursor.execute("select * from fact_investment_transactions")
-                       # "where investment_id=%s",(code))
+        cursor.execute("select * from fact_investment_transactions where investment_id=%s",(inv_id,))
         savings_transactions = cursor.fetchall()
         return savings_transactions
 
 
-def insert_savings_transaction(date, investment_id, amt_invested, user, qty=None , transaction_id=None):
+def insert_savings_transaction(date, investment_id, amt_invested):
     with get_db_cursor(commit=True) as cursor:
-        cursor.callproc("populate_fact_savings_installments", (transaction_id, investment_id, date, amt_invested,
-                                                               qty , user,))
+        cursor.callproc("populate_fact_savings_installments", (investment_id, date, amt_invested, ))
         logger.debug(f"Inserted the following records - Date: {date}, Amount: {amt_invested}, Investment ID: {investment_id}.")
 
 # Schemes and Symbols DAO
@@ -149,8 +152,10 @@ def fetch_debts_transactions_by_acc(debt_id):
 
 def insert_debt_transactions(date, amount, ref):
     with get_db_cursor(commit=True) as cursor:
-        cursor.callproc("populate_fact_debt_installments", (ref, date, amount,))
+        cursor.callproc("populate_fact_debt_installments", (ref, date, amount, ))
         logger.debug(f"Inserted the following records - Date: {date}, Amount: {amount}, Debt ID: {ref}.")
+
+
 
 if __name__ == "__main__":
     pass

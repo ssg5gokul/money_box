@@ -7,7 +7,7 @@ from bootstrap import setup_project_root
 
 setup_project_root()
 
-from backend.api_client import APIClient
+from frontend.api_client import APIClient
 
 TODAY = date.today()
 

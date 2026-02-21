@@ -1,6 +1,10 @@
 from contextlib import contextmanager
+from dotenv import load_dotenv
+import os
 import mysql.connector
 import my_logger
+
+load_dotenv()
 
 logger = my_logger.config_logger()
 
@@ -8,10 +12,10 @@ logger = my_logger.config_logger()
 @contextmanager
 def get_db_cursor(commit=False):
     connection = mysql.connector.connect(
-        host="localhost",
-        user="root",
-        password="root",
-        database="expense_manager"
+        host=os.getenv("MYSQLHOST"),
+        user=os.getenv("MYSQLUSER"),
+        password=os.getenv("MYSQLPASSWORD"),
+        database=os.getenv("MYSQL_DATABASE")
     )
 
     if connection.is_connected():
@@ -155,6 +159,23 @@ def insert_debt_transactions(date, amount, ref):
         cursor.callproc("populate_fact_debt_installments", (ref, date, amount, ))
         logger.debug(f"Inserted the following records - Date: {date}, Amount: {amount}, Debt ID: {ref}.")
 
+
+# Income DAO
+def fetch_income(date):
+    with get_db_cursor() as cursor:
+        cursor.execute("SELECT * FROM dim_income where date_format(date,'%m-%Y') =%s;", params=(date,))
+        debts = cursor.fetchall()
+        return debts
+
+def insert_income(id, date, amount, description):
+    with (get_db_cursor(commit=True) as cursor):
+        cursor.execute(
+            "INSERT INTO dim_income (id, date, amount, description) "
+            "VALUES (%s, %s, %s, %s) AS new_data"
+            " ON DUPLICATE KEY UPDATE "
+            "date = new_data.date, amount = new_data.amount, description = new_data.description"
+            , (id, date, amount, description, ))
+        logger.debug(f"Inserted 1 row of income for the date : {date}.")
 
 
 if __name__ == "__main__":

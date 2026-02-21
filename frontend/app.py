@@ -1,12 +1,15 @@
 import pandas as pd
-import numpy as np
 import streamlit as st
 from datetime import datetime, date, timedelta
+from dateutil.relativedelta import relativedelta
+
 from bootstrap import setup_project_root
 
 setup_project_root()
 
 from backend.api_client import APIClient
+
+TODAY = date.today()
 
 st.set_page_config(layout="wide")
 
@@ -16,11 +19,58 @@ tab_input, tab_analytics = st.tabs(["Add/Update", "Analytics"])
 
 
 with tab_input:
-    tab_expense, tab_savings, tab_debts = st.tabs(["Expense", "Savings", "Debts"])
+    tab_income, tab_expense, tab_savings, tab_debts = st.tabs(["Income", "Expense", "Savings", "Debts"])
+
+    with tab_income:
+        current_month = [(TODAY - relativedelta (months = i)).strftime("%m-%Y") for i in range(3)]
+        income_date = st.selectbox("Enter Month", options=current_month,
+                                   label_visibility="collapsed", key='income_date')
+        #Income data
+        income_response = APIClient(f'income/{income_date}')
+        income_data = income_response.get_data()
+
+        income_columns = [
+            "id", "date", "amount", "description"
+        ]
+
+        income_df = pd.DataFrame(income_data, columns=income_columns)
+
+        income_df["date"] = pd.to_datetime(income_df["date"]).dt.date
+
+        income_column_config = {
+            "id": st.column_config.NumberColumn(
+                "ID", step=1, disabled=True
+            ),
+            "date" : st.column_config.DateColumn("Date"),
+            "amount": st.column_config.NumberColumn(
+                "Amount", step=1.0
+            ),
+            "description": st.column_config.TextColumn(
+                "Description", default='None')
+        }
+
+        income_edited_df = st.data_editor(
+            income_df,
+            column_config=income_column_config,
+            width='stretch',
+            num_rows="dynamic"
+        )
+
+        if st.button("Submit", key='Income_submit'):
+            filtered_df = income_edited_df[income_edited_df["amount"] > 0]
+            payload = filtered_df.copy()
+            try:
+                income_post = APIClient('income')
+                income_post.post_data(payload)
+                st.success("Income saved successfully")
+
+            except RuntimeError as e:
+                st.error(f"Failed to save income - {e}")
+
 
     with tab_expense:
-        ninety_days_ago = date.today() - timedelta(days=90)
-        selected_date = st.date_input("Enter Date", date.today(), min_value=ninety_days_ago, label_visibility="collapsed")
+        ninety_days_ago = TODAY - timedelta(days=90)
+        selected_date = st.date_input("Enter Date", TODAY, min_value=ninety_days_ago, label_visibility="collapsed", key='expense_date')
 
         #Expense data
         expense_response = APIClient(f'expenses/{selected_date}')

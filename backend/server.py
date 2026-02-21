@@ -15,6 +15,12 @@ class Expenses(BaseModel):
     ref_debt: Optional[int]
     notes: str
 
+class Income(BaseModel):
+    id: Optional[int] = None
+    date: date
+    amount: float
+    description: Optional[str]
+
 class Savings(BaseModel):
     investment_id: Optional[int] = None
     start_date: date
@@ -157,3 +163,16 @@ def post_debts_for_date(debts: List[Debt]):
 def get_debts_by_acc(debt_id: int):
     debts = db_helper.fetch_debts_transactions_by_acc(debt_id)
     return debts
+
+# Income DTO
+@app.get("/income/{inc_date}")
+def get_income(inc_date: str):
+    income = db_helper.fetch_income(inc_date)
+    return income
+
+@app.post("/income")
+def post_income(income: List[Income]):
+    for inc in income:
+        db_helper.insert_income(id = inc.id, date= inc.date, amount=inc.amount, description=inc.description)
+
+    return {"message": "Records updated successfully"}

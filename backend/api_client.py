@@ -1,7 +1,11 @@
 import requests
 import backend.my_logger
+import os
+from dotenv import load_dotenv
 
-API_URL = "http://127.0.0.1:8000"
+load_dotenv()
+
+API_URL = os.getenv("API_URL")
 
 class APIClient:
     def __init__(self, fn):

@@ -75,18 +75,17 @@ def fetch_savings():
         return savings
 
 def insert_savings(investment_id, start_date, investment_mode, deposit_account, market_code,
-                   compounding, return_pct, duration, qty_units):
+                   compounding, return_pct, duration):
     with get_db_cursor(commit=True) as cursor:
         cursor.execute("INSERT INTO dim_investment_master (investment_id, start_date, investment_mode,"
-                       "deposit_account, market_code, compounding, return_pct, duration, qty_units) "
-                       "VALUES (%s, %s, %s,%s, %s, %s, %s, %s, %s) as new_data "
+                       "deposit_account, market_code, compounding, return_pct, duration) "
+                       "VALUES (%s, %s, %s,%s, %s, %s, %s, %s) as new_data "
                        "ON DUPLICATE KEY UPDATE start_date = new_data.start_date, investment_mode = "
                        "new_data.investment_mode, deposit_account = new_data.deposit_account, market_code = "
                        "new_data.market_code, compounding = new_data.compounding, "
-                       "return_pct = new_data.return_pct, duration = new_data.duration, "
-                       "qty_units = new_data.qty_units;"
+                       "return_pct = new_data.return_pct, duration = new_data.duration;"
                        , (investment_id, start_date, investment_mode, deposit_account, market_code,
-                          compounding, return_pct, duration, qty_units, ))
+                          compounding, return_pct, duration, ))
         logger.debug(f"Inserted 1 row of savings record for the date: {start_date}")
 
 

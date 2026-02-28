@@ -29,8 +29,7 @@ class Savings(BaseModel):
     market_code: Optional[str] = None
     compounding: Optional[str] = None
     return_pct: float 
-    duration: int  
-    qty_units: Optional[float] = None
+    duration: int
 
 class Debt(BaseModel):
     debt_id: int
@@ -110,7 +109,7 @@ def post_savings(savings: List[Savings]):
                                  investment_mode = saving.investment_mode,
                                  deposit_account = saving.deposit_account, market_code = saving.market_code,
                                  compounding = saving.compounding, return_pct = saving.return_pct,
-                                 duration = saving.duration, qty_units = saving.qty_units)
+                                 duration = saving.duration)
 
     return {"message": "Records updated successfully"}
 

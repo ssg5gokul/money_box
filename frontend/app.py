@@ -146,7 +146,7 @@ with tab_input:
 
         savings_columns = [
             "investment_id", "start_date", "investment_mode", "deposit_account", "market_code",
-            "compounding", "return_pct", "duration", "qty_units"
+            "compounding", "return_pct", "duration"
         ]
 
         savings_df = pd.DataFrame(savings_data, columns=savings_columns)
@@ -171,8 +171,7 @@ with tab_input:
             "investment_mode" : st.column_config.SelectboxColumn("Investment Mode", options=investment_mode_opt,default=None),
             "compounding" : st.column_config.SelectboxColumn("Compounding", options=compounding_opt, default=None),
             "return_pct" : st.column_config.NumberColumn("Return(%)", step=1.00, default=0),
-            "duration" : st.column_config.NumberColumn("Duration(in months)", step=1, default=0),
-            "qty_units" : st.column_config.NumberColumn("Units", step=1.0, default=0)
+            "duration" : st.column_config.NumberColumn("Duration(in months)", step=1, default=0)
 
         }
 

@@ -16,7 +16,7 @@ class APIClient:
     def get_data(self):
         response = None
         try:
-            response = requests.get(f"{API_URL}/{self._endpoint}", timeout=30)
+            response = requests.get(f"{API_URL}/{self._endpoint}", timeout=300)
             response.raise_for_status()
             self._data = response.json()
 

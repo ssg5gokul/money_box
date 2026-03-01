@@ -32,7 +32,7 @@ class Savings(BaseModel):
     duration: int
 
 class Debt(BaseModel):
-    debt_id: int
+    debt_id: Optional[int] = None
     debt_acc_num: str
     debt_type: str
     lender: str

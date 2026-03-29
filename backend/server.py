@@ -1,4 +1,7 @@
-from fastapi import FastAPI
+import datetime
+
+from requests import request
+from fastapi import FastAPI, HTTPException, Request
 from datetime import date
 import db_helper
 from typing import List, Optional, Literal
@@ -13,7 +16,7 @@ class Expenses(BaseModel):
     category: str
     ref_investment: Optional[int]
     ref_debt: Optional[int]
-    notes: str
+    notes: Optional[str]
 
 class Income(BaseModel):
     id: Optional[int] = None
@@ -57,6 +60,14 @@ class Schemes(BaseModel):
     scheme_symbol: str
     scheme_name: str
     asset_type: Literal["Mutual Funds", "Stocks"]
+
+
+class Users(BaseModel):
+    user_id: str
+    fname: str
+    lname: Optional[str]
+    email: str
+    created_at: datetime.datetime
 
 # Expense DTO
 @app.get("/expenses/{expense_date}", response_model=List[Expenses])
@@ -175,3 +186,20 @@ def post_income(income: List[Income]):
         db_helper.insert_income(id = inc.id, date= inc.date, amount=inc.amount, description=inc.description)
 
     return {"message": "Records updated successfully"}
+
+@app.post("/users")
+def post_user(users: List[Users]):
+    for user in users:
+        db_helper.insert_users(user_id=user.user_id, fname= user.fname ,lname=user.lname
+        , email= user.email, created_at = user.created_at)
+
+    return {"message": "Records updated successfully"}
+
+@app.get("/users", response_model=dict)
+def get_users(request: Request):
+    user_id = request.headers.get("x-user-id")
+    if not user_id:
+        raise HTTPException(status_code=401, detail="Missing user id")
+    user_count = db_helper.fetch_user(user_id)
+
+    return user_count

@@ -177,5 +177,18 @@ def insert_income(id, date, amount, description):
         logger.debug(f"Inserted 1 row of income for the date : {date}.")
 
 
+def insert_users(user_id, fname, email, created_at,lname=None):
+    with get_db_cursor(commit=True) as cursor:
+        cursor.execute("INSERT INTO dim_user (user_id, fname, lname, email, created_at) "
+                       "VALUES (%s, %s, %s, %s, %s)"
+                       , (user_id,fname, lname, email, created_at, ))
+        logger.debug(f"New user has enrolled to our app: {email}")
+
+def fetch_user(user_id):
+    with get_db_cursor() as cursor:
+        cursor.execute("SELECT count(1) as user_count FROM dim_user where trim(user_id) =trim(%s);", params=(user_id,))
+        user = cursor.fetchone()
+        return user
+
 if __name__ == "__main__":
     pass

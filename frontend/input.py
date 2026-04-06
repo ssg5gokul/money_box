@@ -35,7 +35,7 @@ with tab_income:
     #Income data
     try:
         income_response = APIClient(f'income/{income_date}')
-        income_data = income_response.get_data()
+        income_data = income_response.get_data(user_id=st.user.sub)
 
     except TimeoutError:
         show_maintenance_screen()
@@ -47,6 +47,13 @@ with tab_income:
         "id", "date", "amount", "description"
     ]
 
+    income_month = int(income_date.split('-')[0])
+    income_yr = int(income_date.split('-')[1])
+    st_date = date(income_yr,income_month,1)
+
+    nxt_mnth = st_date.replace(day=28) + timedelta(days=4)
+    nxt_mnth -= timedelta(days=nxt_mnth.day)
+
     income_df = pd.DataFrame(income_data, columns=income_columns)
 
     income_df.date = pd.to_datetime(income_df["date"]).dt.date
@@ -55,7 +62,7 @@ with tab_income:
         "id": st.column_config.NumberColumn(
             "ID", step=1, disabled=True
         ),
-        "date" : st.column_config.DateColumn("Date"),
+        "date" : st.column_config.DateColumn("Date", min_value=st_date, max_value=nxt_mnth),
         "amount": st.column_config.NumberColumn(
             "Amount", step=1.0
         ),
@@ -72,6 +79,7 @@ with tab_income:
 
     if st.button("Submit", key='Income_submit'):
         filtered_df = income_edited_df[income_edited_df["amount"] > 0]
+        filtered_df["user_id"] = st.user.sub
         payload = filtered_df.copy()
         try:
             income_post = APIClient('income')
@@ -88,16 +96,16 @@ with tab_expense:
 
     #Expense data
     expense_response = APIClient(f'expenses/{selected_date}')
-    expense_data = expense_response.get_data()
+    expense_data = expense_response.get_data(user_id=st.user.sub)
 
     #Equity/ETF symbols and Mutual funds codes
     codes_response = APIClient('current_investments')
-    codes_data = codes_response.get_data()
+    codes_data = codes_response.get_data(user_id=st.user.sub)
     codes = {code['investment_id']: code['investment'] for code in codes_data}
 
     #Loan accounts
     debt_response = APIClient('debts')
-    debt_data = debt_response.get_data()
+    debt_data = debt_response.get_data(user_id=st.user.sub)
     debts_accounts = {debt['debt_id']: debt['debt_acc_num'] for debt in debt_data}
 
     categories = ["Rent", "Shopping", "Food", "Entertainment", "Savings", "Debts", "Other"]
@@ -139,6 +147,7 @@ with tab_expense:
 
     if st.button("Submit", key='Expense_submit'):
         filtered_df = expense_edited_df[expense_edited_df["amount"] > 0]
+        filtered_df["user_id"] = st.user.sub
         payload = filtered_df.copy()
         try:
             expense_response.post_data(payload)
@@ -151,7 +160,7 @@ with tab_expense:
 with tab_savings:
     #Investment data
     savings_response = APIClient('savings')
-    savings_data = savings_response.get_data()
+    savings_data = savings_response.get_data(user_id=st.user.sub)
 
     #Equity/ETF symbols and Mutual Funds codes
     schemes_response = APIClient('savings_schemes')
@@ -184,7 +193,7 @@ with tab_savings:
         "deposit_account": st.column_config.TextColumn("Deposit Account"),
         "investment_mode" : st.column_config.SelectboxColumn("Investment Mode", options=investment_mode_opt,default=None),
         "compounding" : st.column_config.SelectboxColumn("Compounding", options=compounding_opt, default=None),
-        "return_pct" : st.column_config.NumberColumn("Return(%)", step=1.00, default=0),
+        "return_pct" : st.column_config.NumberColumn("Return(%)", step=0.25, default=0.0),
         "duration" : st.column_config.NumberColumn("Duration(in months)", step=1, default=0)
 
     }
@@ -201,6 +210,7 @@ with tab_savings:
     if st.button("Submit", key='Savings_submit'):
         filtered_df = savings_edited_df[ ~( savings_edited_df["deposit_account"].isna() &
                         savings_edited_df["market_code"].isna())]
+        filtered_df["user_id"] = st.user.sub
         payload = filtered_df.copy()
         try:
             payload["start_date"] = payload["start_date"].astype(str)
@@ -219,14 +229,14 @@ with tab_savings:
 
     # Equity/ETF symbols and Mutual funds codes
     codes_response = APIClient('current_investments')
-    codes_data = codes_response.get_data()
+    codes_data = codes_response.get_data(user_id=st.user.sub)
     codes = {code['investment_id']: code['investment'] for code in codes_data}
 
 
     investment_sel = st.selectbox("Savings Account/Code", options=codes, key="inv_acc_sel", format_func=lambda x: codes[x])
 
     # savings_trans_data = get_investment_transactions()
-    savings_trans_response = APIClient(f'savings_transactions/{investment_sel}')
+    savings_trans_response = APIClient(f'savings_transactions/{investment_sel if investment_sel else 0}')
     savings_trans_data = savings_trans_response.get_data()
 
     savings_trans_columns = [
@@ -240,7 +250,7 @@ with tab_savings:
 with tab_debts:
     #Loan details
     debt_response = APIClient('debts')
-    debt_data = debt_response.get_data()
+    debt_data = debt_response.get_data(user_id=st.user.sub)
     debts_accounts = {debt['debt_id']: debt['debt_acc_num'] for debt in debt_data}
 
     required_columns = [
@@ -275,7 +285,7 @@ with tab_debts:
             "Principal Amount", step=1000.00
         ),
         "interest_rate": st.column_config.NumberColumn(
-            "Interest Rate (%)", step=0.10
+            "Interest Rate (%)", step=0.25
         ),
         "duration_months": st.column_config.NumberColumn(
             "Duration (Months)", step=1
@@ -299,6 +309,7 @@ with tab_debts:
 
     if st.button("Submit", key='Debts_submit'):
         filtered_df = edited_df[edited_df["principle_amount"] > 0]
+        filtered_df["user_id"] = st.user.sub
         payload = filtered_df.copy()
         try:
             payload["start_date"] = payload["start_date"].astype(str)
@@ -319,7 +330,7 @@ with tab_debts:
     debt_acc_sel = st.selectbox("Debt Account", options=debts_accounts.keys(), format_func=lambda x: debts_accounts.get(x), key="debt_acc_sel")
 
     #Loan EMI installments
-    debt_trans_response = APIClient(f'debts_transactions_by_acc/{debt_acc_sel}')
+    debt_trans_response = APIClient(f'debts_transactions_by_acc/{debt_acc_sel if debt_acc_sel else 0}')
     debt_transactions = debt_trans_response.get_data()
 
     debt_transactions_df = pd.DataFrame(debt_transactions)

@@ -19,7 +19,7 @@ def setup_project_root():
     root = get_project_root()
 
     if root:
-        print(f"Detected Root: {root}")
+        # print(f"Detected Root: {root}")
         # Add to sys.path so you can import from backend
         if str(root) not in sys.path:
             sys.path.insert(0, str(root))

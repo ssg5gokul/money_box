@@ -13,7 +13,7 @@ def add_user():
 
     users_api = APIClient("users")
 
-    if users_api.get_user(user_id=st.user.sub)['user_count'] == 0:
+    if users_api.get_data(user_id=st.user.sub)['user_count'] == 0:
         users_api.post_data(user_df)
 
 st.title("Welcome to Money Box! 🐖")

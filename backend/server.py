@@ -12,6 +12,7 @@ app = FastAPI()
 
 class Expenses(BaseModel):
     id: Optional[int] = None
+    user_id: str
     amount: float
     category: str
     ref_investment: Optional[int]
@@ -20,12 +21,14 @@ class Expenses(BaseModel):
 
 class Income(BaseModel):
     id: Optional[int] = None
+    user_id: str
     date: date
     amount: float
     description: Optional[str]
 
 class Savings(BaseModel):
     investment_id: Optional[int] = None
+    user_id: str
     start_date: date
     investment_mode: str
     deposit_account: Optional[str] = None
@@ -36,6 +39,7 @@ class Savings(BaseModel):
 
 class Debt(BaseModel):
     debt_id: Optional[int] = None
+    user_id: str
     debt_acc_num: str
     debt_type: str
     lender: str
@@ -71,15 +75,18 @@ class Users(BaseModel):
 
 # Expense DTO
 @app.get("/expenses/{expense_date}", response_model=List[Expenses])
-def get_expenses_for_date(expense_date: date):
-    expenses = db_helper.fetch_expense_records_for_date(expense_date)
+def get_expenses_for_date(expense_date: date, request:Request):
+    user_id = request.headers.get("x-user-id")
+    if not user_id:
+        raise HTTPException(status_code=401, detail="Missing user id")
+    expenses = db_helper.fetch_expense_records_for_date(expense_date, user_id)
     return expenses
 
 
 @app.post("/expenses/{expense_date}")
 def post_expenses_for_date(expense_date: date, expenses: List[Expenses]):
     for expense in expenses:
-        db_helper.insert_expense(id=expense.id, expense_date=expense_date, amount=expense.amount,
+        db_helper.insert_expense(id=expense.id, user_id=expense.user_id, expense_date=expense_date, amount=expense.amount,
                                  category=expense.category, ref_investment=expense.ref_investment,
                                  ref_debt=expense.ref_debt, notes=expense.notes)
 
@@ -108,8 +115,11 @@ def post_expenses_for_date(expense_date: date, expenses: List[Expenses]):
 
 # Savings DTO
 @app.get("/savings", response_model=List[Savings])
-def get_savings():
-    savings = db_helper.fetch_savings()
+def get_savings(requests: Request):
+    user_id = requests.headers.get("x-user-id")
+    if not user_id:
+        raise HTTPException(status_code=401, detail="Missing user id")
+    savings = db_helper.fetch_savings(user_id)
     return savings
 
 
@@ -117,7 +127,7 @@ def get_savings():
 def post_savings(savings: List[Savings]):
     for saving in savings:
         db_helper.insert_savings(investment_id = saving.investment_id, start_date = saving.start_date,
-                                 investment_mode = saving.investment_mode,
+                                 investment_mode = saving.investment_mode, user_id = saving.user_id,
                                  deposit_account = saving.deposit_account, market_code = saving.market_code,
                                  compounding = saving.compounding, return_pct = saving.return_pct,
                                  duration = saving.duration)
@@ -146,20 +156,26 @@ def get_schemes():
 
 
 @app.get("/current_investments")
-def get_deposit_accounts():
-    codes = db_helper.fetch_current_investments()
+def get_deposit_accounts(requests: Request):
+    user_id = requests.headers.get("x-user-id")
+    if not user_id:
+        raise HTTPException(status_code=401, detail="Missing user id")
+    codes = db_helper.fetch_current_investments(user_id)
     return codes
 
 # Debts DTO
 @app.get("/debts")
-def get_debts():
-    debts = db_helper.fetch_debts()
+def get_debts(requests: Request):
+    user_id = requests.headers.get("x-user-id")
+    if not user_id:
+        raise HTTPException(status_code=401, detail="Missing user id")
+    debts = db_helper.fetch_debts(user_id)
     return debts
 
 @app.post("/debts")
 def post_debts_for_date(debts: List[Debt]):
     for debt in debts:
-        db_helper.insert_debts(debt_id = debt.debt_id,
+        db_helper.insert_debts(debt_id = debt.debt_id, user_id=debt.user_id,
                                debt_acc_num=debt.debt_acc_num, debt_type = debt.debt_type, lender = debt.lender,
                                start_date = debt.start_date, principle_amount = debt.principle_amount,
                                interest_rate = debt.interest_rate, duration_months =debt.duration_months,
@@ -176,17 +192,21 @@ def get_debts_by_acc(debt_id: int):
 
 # Income DTO
 @app.get("/income/{inc_date}")
-def get_income(inc_date: str):
-    income = db_helper.fetch_income(inc_date)
+def get_income(inc_date: str, requests: Request):
+    user_id = requests.headers.get("x-user-id")
+    if not user_id:
+        raise HTTPException(status_code=401, detail="Missing user id")
+    income = db_helper.fetch_income(inc_date, user_id)
     return income
 
 @app.post("/income")
 def post_income(income: List[Income]):
     for inc in income:
-        db_helper.insert_income(id = inc.id, date= inc.date, amount=inc.amount, description=inc.description)
+        db_helper.insert_income(id = inc.id, user_id=inc.user_id, date= inc.date, amount=inc.amount, description=inc.description)
 
     return {"message": "Records updated successfully"}
 
+# Users
 @app.post("/users")
 def post_user(users: List[Users]):
     for user in users:
@@ -196,8 +216,8 @@ def post_user(users: List[Users]):
     return {"message": "Records updated successfully"}
 
 @app.get("/users", response_model=dict)
-def get_users(request: Request):
-    user_id = request.headers.get("x-user-id")
+def get_users(requests: Request):
+    user_id = requests.headers.get("x-user-id")
     if not user_id:
         raise HTTPException(status_code=401, detail="Missing user id")
     user_count = db_helper.fetch_user(user_id)

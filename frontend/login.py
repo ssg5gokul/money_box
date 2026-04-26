@@ -11,10 +11,17 @@ def add_user():
         'created_at': st.user.updated_at
     }, index=[0])
 
-    users_api = APIClient("users")
+    try:
+        users_api = APIClient("users")
 
-    if users_api.get_data(user_id=st.user.sub)['user_count'] == 0:
-        users_api.post_data(user_df)
+        if users_api.get_data(user_id=st.user.sub)['user_count'] == 0:
+            users_api.post_data(user_df)
+
+    except TimeoutError:
+        st.info("Apologies for the inconvenience. Couldn't fetch your data at the moment due to a maintenance window. Please try later.")
+
+    except RuntimeError:
+        st.error("Invalid data")
 
 st.title("Welcome to Money Box! 🐖")
 st.subheader("Track. Save. Grow your money smarter.")
@@ -46,7 +53,7 @@ else:
         st.warning("Action below is permanent.")
         if st.button("Delete My Account Data", type="secondary", use_container_width=True):
             # For a resume project, a simple 'Contact' redirect or a success message is best
-            st.error("Request Sent! Since this is a demo, please email [your-email@example.com] to confirm deletion.")
+            st.error("Request Sent! Since this is a demo, please email progoks123@gmail.com to confirm deletion.")
             # st.logout() # Optional: kick them out after they click delete
 
     if st.button("Log out"):

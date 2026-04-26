@@ -94,7 +94,7 @@ def insert_savings(investment_id, user_id, start_date, investment_mode, deposit_
 # Savings Transactions DAO
 def fetch_savings_transactions(inv_id):
     with get_db_cursor() as cursor:
-        cursor.execute("select * from fact_investment_transactions where investment_id=%s",(inv_id,))
+        cursor.execute("select * from v_investment_transactions where investment_id=%s",(inv_id,))
         savings_transactions = cursor.fetchall()
         return savings_transactions
 

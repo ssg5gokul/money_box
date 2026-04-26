@@ -226,7 +226,7 @@ with tab_savings:
             st.error(f"Failed to save investments - {e}")
 
     st.header("Savings Transactions")
-
+    st.info("Newly added investments will be updated after the next data refresh.")
     # Equity/ETF symbols and Mutual funds codes
     codes_response = APIClient('current_investments')
     codes_data = codes_response.get_data(user_id=st.user.sub)
@@ -241,7 +241,7 @@ with tab_savings:
 
     savings_trans_columns = [
         "transaction_id", "date", "investment_id",
-        "amt_invested", "current_price_per_unit", "qty", "user"
+        "amt_invested", "price_per_unit", "qty", "user"
     ]
     savings_trans_df = pd.DataFrame(savings_trans_data, columns=savings_trans_columns)
 

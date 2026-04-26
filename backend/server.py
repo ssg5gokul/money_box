@@ -56,7 +56,7 @@ class SavingsTransactions(BaseModel):
     date: date
     investment_id: int
     amt_invested: float
-    current_price_per_unit: float
+    price_per_unit: Optional[float] = None
     qty: Optional[float] = None
 
 

@@ -19,9 +19,9 @@ login_page = st.Page("login.py", title="Login", icon=":material/login:")
 if st.user.is_logged_in:
     pg = st.navigation(
         {
+            "Account": [login_page],
             "Tools": [entry_page],
-            "Reports": [analytics_page],
-            "Account": [logout_page]
+            "Reports": [analytics_page]
         }
     )
 else:
